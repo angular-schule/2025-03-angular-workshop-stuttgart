@@ -26,6 +26,9 @@ Die Übungen befinden sich im Ordner `rxjs-playground/src/app/exercises/`.
 
 # ✅ Vorbereitung
 
+> [!IMPORTANT]  
+> **Bitte erledige die Vorbereitung gemeinsam mit dem Trainer im Web-Grundlagen-Kurs.**
+
 Damit wir gleich durchstarten können, solltest Du ein paar Vorbereitungen treffen.  
 Die gesamte Installation wird rund 30 Minuten dauern. 
 
