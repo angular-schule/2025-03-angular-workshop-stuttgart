@@ -1,3 +1,23 @@
-<h2>{{ book().title }}</h2>
+<div class="card mb-4">
+  <div class="card-body bg-light">
+      <img class="img-thumbnail float-end" alt=""
+        src="https://api.angular.schule/avatar/{{ book().rating }}">
+    <div class="card-title">
+      <h2>
+        {{ book().title }}
+        <span class="badge bg-secondary">{{ book().rating }}</span>
+      </h2>
+    </div>
+    <p>{{ book().description }}</p>
+   <p>Preis: {{ book().price | currency:'EUR' }}</p>
+   <p>
+    ISBN: {{ book().isbn }}
+   </p>
 
-<p>{{ book().description }}</p>
+   <p>Autoren:
+    @for (a of book().authors; track $index) {
+      {{ a }}@if (!$last) {, }
+    }
+   </p>
+  </div>
+</div>

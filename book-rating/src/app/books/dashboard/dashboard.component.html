@@ -1,1 +1,5 @@
-<app-book [book]="books()[0]" />
+<p>DATUM: {{ myDate() | date:'medium' }}</p>
+
+@for (b of books(); track b.isbn) {
+  <app-book [book]="b" />
+}

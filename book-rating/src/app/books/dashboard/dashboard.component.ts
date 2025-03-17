@@ -1,17 +1,24 @@
 import { Component, signal } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookComponent } from '../book/book.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BookComponent],
+  imports: [BookComponent, DatePipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   readonly books = signal<Book[]>([]);
 
+  readonly myDate = signal(Date.now());
+
   constructor() {
+    setInterval(() => {
+      this.myDate.set(Date.now())
+    }, 1000);
+
     this.books.set([
       {
         isbn: '456',
