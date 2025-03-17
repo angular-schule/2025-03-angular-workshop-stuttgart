@@ -1,4 +1,5 @@
 <p>DATUM: {{ myDate() | date:'medium' }}</p>
+<p>Anzahl Bücher: {{ books().length }}</p>
 
 @for (b of books(); track b.isbn) {
   <app-book [book]="b" />
