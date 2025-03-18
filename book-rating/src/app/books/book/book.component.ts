@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { Book } from '../shared/book';
 import { CurrencyPipe } from '@angular/common';
 import { RatingComponent } from "../rating/rating.component";
@@ -13,6 +13,8 @@ export class BookComponent {
   // Input: hier fließen Daten von der Elternkomponente hinein
   // von oben nach unten
   readonly book = input.required<Book>();
+
+  readonly authors = computed(() => this.book().authors.join(', '));
 
   // Output: hier fließen Daten zur Elternkomponente hinaus
   // von unten nach oben
