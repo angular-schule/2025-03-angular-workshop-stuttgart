@@ -11,4 +11,6 @@ import { DashboardComponent } from './books/dashboard/dashboard.component';
 })
 export class AppComponent {
   title = 'Book Rating';
+  foo = 5;
+
 }

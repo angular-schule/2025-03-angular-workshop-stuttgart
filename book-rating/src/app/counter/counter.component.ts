@@ -18,4 +18,8 @@ export class CounterComponent {
     this.counter.update(current => current - 1);
   }
 
+  reset() {
+    this.counter.set(0);
+  }
+
 }
