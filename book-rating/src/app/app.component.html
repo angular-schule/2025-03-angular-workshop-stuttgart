@@ -1,13 +1,19 @@
 <main class="container">
   <h1>{{ title }}</h1>
-  <app-counter />
+  <!--<app-counter />-->
 
-  <app-dashboard />
+  <router-outlet />
 </main>
 
 <!--
 TODO
-- Datenmodell
-- Daten
-- Kachel pro Buch (eigene Komponente)
+- Root-URL Weiterleitung
+- Wildcard-Route
+- Links
+  - BookComponent => BookDetails
+  - BookDetails => Dashboard
+- Detailseite
+  - ISBN aus der URL auslesen
+  - HTTP-Request
+  - Buch anzeigen
 -->
