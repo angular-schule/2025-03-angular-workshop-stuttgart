@@ -24,6 +24,7 @@ export class BookDetailsComponent {
 
 
     // PUSH
+    // TODO: Verschachtelte Subscriptions vermeiden
     this.#route.paramMap.subscribe(params => {
       const isbn = params.get('isbn')!;
       this.#bs.getSingle(isbn).subscribe(book => {

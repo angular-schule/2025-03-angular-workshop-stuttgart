@@ -19,17 +19,20 @@ export class DashboardComponent {
   #rs = inject(BookRatingService);
   #bs = inject(BookStoreService);
 
+  #interval = setInterval(() => {
+    this.myDate.set(Date.now());
+    console.log(this.myDate());
+  }, 1000);
+
   constructor() {
     this.#bs.getAll().subscribe(receivedbooks => {
       this.books.set(receivedbooks);
     });
+  }
 
-
-    setInterval(() => {
-      this.myDate.set(Date.now())
-    }, 1000);
-
-
+  ngOnDestroy() {
+    console.log('DESTROY');
+    clearInterval(this.#interval);
   }
 
   doRateUp(book: Book) {
