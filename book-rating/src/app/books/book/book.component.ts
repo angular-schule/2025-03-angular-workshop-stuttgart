@@ -21,6 +21,7 @@ export class BookComponent {
   // von unten nach oben
   readonly rateUp = output<Book>();
   readonly rateDown = output<Book>();
+  readonly deleteBook = output<Book>();
 
   doRateUp() {
     this.rateUp.emit(this.book());
@@ -28,5 +29,9 @@ export class BookComponent {
 
   doRateDown() {
     this.rateDown.emit(this.book());
+  }
+
+  doDelete() {
+    this.deleteBook.emit(this.book())
   }
 }

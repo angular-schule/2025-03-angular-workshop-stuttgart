@@ -45,6 +45,19 @@ export class DashboardComponent {
     this.#updateList(ratedBook);
   }
 
+  doDeleteBook(book: Book) {
+    this.#bs.deleteBook(book.isbn).subscribe(() => {
+      /*this.#bs.getAll().subscribe(receivedbooks => {
+        this.books.set(receivedbooks);
+      });*/
+
+      /*
+      this.books.update(currentList => {
+        return currentList.filter(b => b.isbn !== book.isbn);
+      })*/
+    });
+  }
+
   #updateList(ratedBook: Book) {
     this.books.update(currentList => {
       return currentList.map(b => {

@@ -22,6 +22,7 @@
     </p>
     <button type="button" [disabled]="book().rating >= 5" class="btn btn-green" (click)="doRateUp()"> + </button>
     <button type="button" [disabled]="book().rating <= 1" class="btn btn-red" (click)="doRateDown()"> – </button>
+    <button type="button" class="btn btn-yellow" (click)="doDelete()">🗑️ Delete</button>
 
     <a [routerLink]="['/books', book().isbn]">Details</a>
     <!--
