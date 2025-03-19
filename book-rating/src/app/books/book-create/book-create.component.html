@@ -34,6 +34,18 @@
     <label for="priceInput">Price</label>
     <input type="number" id="priceInput" class="form-control" [formControl]="c.price">
   </div>
+
+  <fieldset class="mb-2">
+    <label>Authors</label>
+    @for (a of c.authors.controls; track $index) {
+    <input type="text" class="form-control mb-2" [formControl]="a">
+    }
+    <div>
+      <button type="button" class="btn btn-grey" (click)="addAuthorField()">+ Author</button>
+    </div>
+  </fieldset>
+
+
   <button type="submit" [disabled]="bookForm.invalid" class="btn btn-green">Submit</button>
 </form>
 
