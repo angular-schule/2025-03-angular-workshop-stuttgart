@@ -16,10 +16,21 @@ export class BookDetailsComponent {
   readonly book = signal<Book | undefined>(undefined);
 
   constructor() {
-    const isbn = this.#route.snapshot.paramMap.get('isbn')!; // Non-Null Assertion, gefährlich! // path: 'books/:isbn'
+    // PULL
+    /*const isbn = this.#route.snapshot.paramMap.get('isbn')!; // Non-Null Assertion, gefährlich! // path: 'books/:isbn'
     this.#bs.getSingle(isbn).subscribe(book => {
       this.book.set(book);
-    })
+    })*/
+
+
+    // PUSH
+    this.#route.paramMap.subscribe(params => {
+      const isbn = params.get('isbn')!;
+      this.#bs.getSingle(isbn).subscribe(book => {
+        this.book.set(book);
+      });
+    });
+
 
 
     /* AUFGABE:
