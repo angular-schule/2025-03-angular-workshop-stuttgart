@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Book } from './book';
 import { Observable } from 'rxjs';
 
@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BookStoreService {
+
 
   #apiUrl = 'https://api.angular.schule';
   #http = inject(HttpClient);

@@ -24,6 +24,11 @@
     <button type="button" [disabled]="book().rating <= 1" class="btn btn-red" (click)="doRateDown()"> – </button>
 
     <a [routerLink]="['/books', book().isbn]">Details</a>
+    <!--
+    1.) RouterLink mit/ohne eckige Klammern
+    2.) wenn eckige Klammern, dann String oder Array von String
+    3.) Relative/absolute Pfade
+    -->
     <!--<a [routerLink]="[book().isbn]">Details</a>
     <a [routerLink]="book().isbn">Details</a>
     <a routerLink="{{ book().isbn }}">Details</a>
