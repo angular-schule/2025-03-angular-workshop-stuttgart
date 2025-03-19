@@ -6,5 +6,5 @@ export const routes: Routes = [
   // bei Weiterleitung vom leeren Pfad (fast) immer pathMatch:full
   { path: '', redirectTo: 'books', pathMatch: 'full' },
   ...booksRoutes,
-  { path: '**', component: ErrorPageComponent }
+  { path: '**', component: ErrorPageComponent, title: 'Fehler' }
 ];
