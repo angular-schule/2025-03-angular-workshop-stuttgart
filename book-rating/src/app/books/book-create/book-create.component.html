@@ -1,7 +1,7 @@
 @let c = bookForm.controls;
 <h2>Buch anlegen</h2>
 
-<form [formGroup]="bookForm">
+<form [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="form-group">
     <label for="isbnInput">ISBN</label>
     <input type="text" id="isbnInput" class="form-control" [formControl]="c.isbn">

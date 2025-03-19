@@ -1,6 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Book } from '../shared/book';
+import { BookStoreService } from '../shared/book-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-create',
@@ -9,6 +12,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './book-create.component.scss'
 })
 export class BookCreateComponent {
+  #bs = inject(BookStoreService);
+  #router = inject(Router);
+
   bookForm = new FormGroup({
     isbn: new FormControl('', {
       nonNullable: true,
@@ -54,6 +60,23 @@ export class BookCreateComponent {
   hasError(input: FormControl, errorCode: string): boolean {
     return input.hasError(errorCode) && input.touched;
   }
+
+  submitForm() {
+    const newBook: Book = {
+      ...this.bookForm.getRawValue(),
+      authors: [] // TODO
+    };
+
+    this.#bs.create(newBook).subscribe(receivedBook => {
+      this.#router.navigate(['/books', receivedBook.isbn]);
+    });
+
+
+    /*
+    - HTTP bs.create()
+    - DANACH bei Erfolg: zur Detailseite navigieren
+    */
+  }
 }
 
 /*
@@ -63,7 +86,6 @@ TODO:
   - "Die ISBN ist zu kurz."
 - SubmitButton deaktivieren
 - Formular abschicken
-- HTTP bs.create()
-- bei Erfolg: zur Detailseite navigieren
+
 
 */
