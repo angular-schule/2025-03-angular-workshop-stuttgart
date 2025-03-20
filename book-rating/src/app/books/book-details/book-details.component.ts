@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Book } from '../shared/book';
 import { BookStoreService } from '../shared/book-store.service';
 import { map, mergeMap, switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-book-details',
@@ -14,7 +15,12 @@ export class BookDetailsComponent {
   #route = inject(ActivatedRoute);
   #bs = inject(BookStoreService);
 
-  readonly book = signal<Book | undefined>(undefined);
+  readonly book = toSignal(
+    this.#route.paramMap.pipe(
+      map(params => params.get('isbn')!),
+      switchMap(isbn => this.#bs.getSingle(isbn))
+    )
+  );
 
   constructor() {
     // PULL
@@ -25,12 +31,7 @@ export class BookDetailsComponent {
 
 
     // PUSH
-    this.#route.paramMap.pipe(
-      map(params => params.get('isbn')!),
-      switchMap(isbn => this.#bs.getSingle(isbn))
-    ).subscribe(book => {
-      this.book.set(book);
-    });
+
 
 
 
