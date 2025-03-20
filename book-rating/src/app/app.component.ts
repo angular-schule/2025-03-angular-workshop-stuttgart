@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CounterComponent } from './counter/counter.component';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, connectable, filter, from, interval, map, Observable, of, share, Subject, timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,51 @@ export class AppComponent {
   foo = 5;
 
   constructor() {
+    // of('Stuttgart', 'München', 'Leipzig')
+    // from([1,2,3,4,5])
+    // interval(1000)        // ---0---1---2---3---4---5 ...
+    // timer(3000)           // ---------0|
+    // timer(1000, 1000)     // ---0---1---2---3---4---5 ...
+    // timer(3000, 1000)     // ---------0---1---2---3---4---5 ...
+    // timer(0, 1000)        // 0---1---2---3---4---5 ...
+
+
+    /*const intervalX$ = timer(0, 5000).pipe(
+      map(e => e * 3),
+      // filter(e => e % 2 === 0)
+      // share()
+    )*/
+
+    /*const interval$ = new BehaviorSubject<number>(-1);
+    intervalX$.subscribe(interval$);*/
+
+
+    /*const interval$ = connectable(intervalX$);
+    interval$.connect();*/
+
+
+    /*interval$.subscribe({
+      next: e => console.log('A', e),
+      complete: () => console.log('COMPLETE')
+    })*/
+
+    /*setTimeout(() => {
+      interval$.subscribe({
+        next: e => console.log('B', e),
+        complete: () => console.log('COMPLETE')
+      })
+    }, 2500)
+
+    setTimeout(() => {
+      interval$.subscribe({
+        next: e => console.log('C', e),
+        complete: () => console.log('COMPLETE')
+      })
+    }, 7500)*/
+
+
+    //////////////////////////////
+
     // Producer: generiert Werte
     function producer(sub: any) {
       const result = Math.random();
@@ -48,11 +93,11 @@ export class AppComponent {
 
     // producer(obs);
     // myObs$.subscribe(obs);
-    myObs$.subscribe(e => console.log(e))
+    // myObs$.subscribe(e => console.log(e))
 
-    myObs$.subscribe({
+    /*myObs$.subscribe({
       next: e => console.log(e)
-    })
+    })*/
 
     /*producer({
       next: (e: number) => console.log('X', e),

@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { Book } from '../shared/book';
 import { BookStoreService } from '../shared/book-store.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-book-create',
@@ -73,6 +74,10 @@ export class BookCreateComponent {
   }
 
   submitForm() {
+    if (this.bookForm.invalid) {
+      return;
+    }
+
     const newBook: Book = {
       ...this.bookForm.getRawValue()
     };
