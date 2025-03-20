@@ -4,7 +4,7 @@ import { BookComponent } from '../book/book.component';
 import { DatePipe } from '@angular/common';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
-import { interval, map, Subscription } from 'rxjs';
+import { interval, map, Subject, Subscription, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,26 +25,27 @@ export class DashboardComponent {
     console.log(this.myDate());
   }, 1000);*/
 
-  #sub: Subscription;
+  #destroy$ = new Subject<void>();
 
   constructor() {
     this.#bs.getAll().subscribe(receivedbooks => {
       this.books.set(receivedbooks);
     });
 
-    this.#sub = interval(1000).pipe(
-      map(() => Date.now())
+    interval(1000).pipe(
+      map(() => Date.now()),
+      takeUntil(this.#destroy$)
     ).subscribe(e => {
       this.myDate.set(e);
       console.log(e);
     });
-
   }
 
   ngOnDestroy() {
     console.log('DESTROY');
     // clearInterval(this.#interval);
-    this.#sub.unsubscribe();
+    this.#destroy$.next();
+
   }
 
   doRateUp(book: Book) {
