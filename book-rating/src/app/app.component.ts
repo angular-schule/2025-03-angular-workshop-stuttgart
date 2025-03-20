@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CounterComponent } from './counter/counter.component';
-import { BehaviorSubject, connectable, filter, from, interval, map, Observable, of, share, Subject, timer } from 'rxjs';
+import { BehaviorSubject, connectable, filter, from, interval, map, mergeAll, mergeMap, Observable, of, share, Subject, timer } from 'rxjs';
+import { BookStoreService } from './books/shared/book-store.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { BehaviorSubject, connectable, filter, from, interval, map, Observable, 
 export class AppComponent {
   title = 'Book Rating';
   foo = 5;
+  #bs = inject(BookStoreService);
 
   constructor() {
     // of('Stuttgart', 'München', 'Leipzig')
@@ -21,6 +23,16 @@ export class AppComponent {
     // timer(1000, 1000)     // ---0---1---2---3---4---5 ...
     // timer(3000, 1000)     // ---------0---1---2---3---4---5 ...
     // timer(0, 1000)        // 0---1---2---3---4---5 ...
+
+    // 9783864906466
+    /*interval(2000).pipe(
+      mergeMap(() => this.#bs.getSingle('9783864906466'))
+    ).subscribe(e => {
+      console.log(e)
+    });*/
+
+
+
 
 
     /*const intervalX$ = timer(0, 5000).pipe(

@@ -4,8 +4,8 @@ import { BookComponent } from '../book/book.component';
 import { DatePipe } from '@angular/common';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
-import { interval, map, Subject, Subscription, takeUntil, timer } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { interval, map, startWith, Subject, Subscription, takeUntil, timer } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +16,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class DashboardComponent {
   readonly books = signal<Book[]>([]);
 
-  readonly myDate = signal(Date.now());
+  // readonly myDate = signal(Date.now());
+  readonly myDate = toSignal(
+    timer(0, 1000).pipe(
+      startWith(-1),
+      map(() => Date.now())
+    ),
+    { requireSync: true }
+    // { initialValue: Date.now() }
+  );
 
   #rs = inject(BookRatingService);
   #bs = inject(BookStoreService);
@@ -33,14 +41,14 @@ export class DashboardComponent {
       this.books.set(receivedbooks);
     });
 
-    interval(1000).pipe(
+    /*interval(1000).pipe(
       map(() => Date.now()),
       // takeUntil(this.#destroy$)
       takeUntilDestroyed()
     ).subscribe(e => {
       this.myDate.set(e);
       console.log(e);
-    });
+    });*/
   }
 
   ngOnDestroy() {
