@@ -1,0 +1,8 @@
+<div style="background: #DDD; margin: 1em; border: 1 px solid #AAA">
+  <h2>Liked books</h2>
+  <ul>
+  @for (b of books(); track $index) {
+    <li>{{ b.title }}</li>
+  }
+  </ul>
+</div>

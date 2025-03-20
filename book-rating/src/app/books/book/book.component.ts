@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { Book } from '../shared/book';
 import { CurrencyPipe } from '@angular/common';
 import { RatingComponent } from "../rating/rating.component";
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-book',
   imports: [CurrencyPipe, RatingComponent, RouterLink],
   templateUrl: './book.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './book.component.scss'
 })
 export class BookComponent {
@@ -22,6 +23,7 @@ export class BookComponent {
   readonly rateUp = output<Book>();
   readonly rateDown = output<Book>();
   readonly deleteBook = output<Book>();
+  readonly likeBook = output<Book>();
 
   doRateUp() {
     this.rateUp.emit(this.book());
@@ -33,5 +35,9 @@ export class BookComponent {
 
   doDelete() {
     this.deleteBook.emit(this.book())
+  }
+
+  doLike() {
+    this.likeBook.emit(this.book())
   }
 }

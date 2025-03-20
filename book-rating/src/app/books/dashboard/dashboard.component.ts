@@ -1,20 +1,22 @@
 import { Component, inject, signal } from '@angular/core';
 import { Book } from '../shared/book';
 import { BookComponent } from '../book/book.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, SlicePipe } from '@angular/common';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
 import { interval, map, startWith, Subject, Subscription, takeUntil, timer } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { LikeListComponent } from '../like-list/like-list.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BookComponent, DatePipe],
+  imports: [BookComponent, DatePipe, SlicePipe, LikeListComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   readonly books = signal<Book[]>([]);
+
 
   // readonly myDate = signal(Date.now());
   readonly myDate = toSignal(
@@ -28,6 +30,8 @@ export class DashboardComponent {
 
   #rs = inject(BookRatingService);
   #bs = inject(BookStoreService);
+
+  readonly likedBooks = this.#bs.likedBooks;
 
   /*#interval = setInterval(() => {
     this.myDate.set(Date.now());
@@ -66,6 +70,10 @@ export class DashboardComponent {
   doRateDown(book: Book) {
     const ratedBook = this.#rs.rateDown(book);
     this.#updateList(ratedBook);
+  }
+
+  doLikeBook(book: Book) {
+    this.#bs.addToLikedBooks(book);
   }
 
   doDeleteBook(book: Book) {

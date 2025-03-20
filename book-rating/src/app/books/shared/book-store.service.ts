@@ -7,10 +7,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BookStoreService {
-
-
   #apiUrl = 'https://api.angular.schule';
   #http = inject(HttpClient);
+
+  readonly likedBooks = signal<Book[]>([]);
+
+  addToLikedBooks(book: Book) {
+    this.likedBooks.update(currentList => {
+      return [...currentList, book];
+    });
+  }
 
   getAll(): Observable<Book[]> {
     return this.#http.get<Book[]>(`${this.#apiUrl}/books`); // this.#apiUrl + '/books'

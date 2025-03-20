@@ -34,7 +34,6 @@ export class AppComponent {
 
 
 
-
     /*const intervalX$ = timer(0, 5000).pipe(
       map(e => e * 3),
       // filter(e => e % 2 === 0)

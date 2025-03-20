@@ -1,9 +1,13 @@
 <p>DATUM: {{ myDate() | date:'medium' }}</p>
 <p>Anzahl Bücher: {{ books().length }}</p>
 
+
+<app-like-list [books]="likedBooks()" />
+
 @for (b of books(); track b.isbn) {
   <app-book [book]="b"
     (rateUp)="doRateUp($event)"
     (rateDown)="doRateDown($event)"
-    (deleteBook)="doDeleteBook($event)" />
+    (deleteBook)="doDeleteBook($event)"
+    (likeBook)="doLikeBook($event)" />
 }

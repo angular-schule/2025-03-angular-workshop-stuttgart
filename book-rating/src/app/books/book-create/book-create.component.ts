@@ -79,7 +79,8 @@ export class BookCreateComponent {
     }
 
     const newBook: Book = {
-      ...this.bookForm.getRawValue()
+      ...this.bookForm.getRawValue(),
+      firstThumbnailUrl: ''
     };
 
     this.#bs.create(newBook).subscribe(receivedBook => {

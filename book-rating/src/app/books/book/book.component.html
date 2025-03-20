@@ -1,7 +1,7 @@
 <div class="card mb-4">
   <div class="card-body bg-light">
       <img class="img-thumbnail float-end" alt=""
-        src="https://api.angular.schule/avatar/{{ book().rating }}">
+        [src]="book().firstThumbnailUrl" style="width: 150px">
     <div class="card-title">
       <h2>
         {{ book().title }}
@@ -23,6 +23,7 @@
     <button type="button" [disabled]="book().rating >= 5" class="btn btn-green" (click)="doRateUp()"> + </button>
     <button type="button" [disabled]="book().rating <= 1" class="btn btn-red" (click)="doRateDown()"> – </button>
     <button type="button" class="btn btn-yellow" (click)="doDelete()">🗑️ Delete</button>
+    <button type="button" class="btn btn-red" (click)="doLike()">❤️ Like</button>
 
     <a [routerLink]="['/books', book().isbn]">Details</a>
     <!--
